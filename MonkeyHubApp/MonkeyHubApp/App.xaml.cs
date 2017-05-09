@@ -8,7 +8,7 @@ namespace MonkeyHubApp
         {
             InitializeComponent();
 
-            MainPage = new MonkeyHubAppPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
