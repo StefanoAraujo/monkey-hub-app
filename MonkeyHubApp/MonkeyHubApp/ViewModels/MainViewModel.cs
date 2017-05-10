@@ -1,13 +1,37 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 namespace MonkeyHubApp.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string Descricao {get; set;}
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyName)));
+        }
+
+        protected bool SetProperty([CallerMemberName] string propertyName = null)
+        {
+            OnPropertyChanged(propertyName);
+
+            return true;
+        }
+
+        private string _descricao;
+
+        public string Descricao
+        {
+            get { return _descricao; }
+            set
+            {
+                _descricao = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public MainViewModel()
         {
@@ -15,8 +39,7 @@ namespace MonkeyHubApp.ViewModels
 
             Task.Delay(3000).ContinueWith(t => 
             {
-                Descricao = "Meu texto mudou";
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Descricao"));
+                Descricao = "Meu texto mudou";              
             });
         }
     }
