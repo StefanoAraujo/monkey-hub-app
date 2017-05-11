@@ -1,25 +1,9 @@
 ﻿using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace MonkeyHubApp.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(propertyName)));
-        }
-
-        protected bool SetProperty([CallerMemberName] string propertyName = null)
-        {
-            OnPropertyChanged(propertyName);
-
-            return true;
-        }
-
         private string _descricao;
 
         public string Descricao
@@ -27,8 +11,7 @@ namespace MonkeyHubApp.ViewModels
             get { return _descricao; }
             set
             {
-                _descricao = value;
-                OnPropertyChanged();
+                SetProperty(ref _descricao, value);
             }
         }
 
